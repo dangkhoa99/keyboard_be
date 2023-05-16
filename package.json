@@ -1,0 +1,24 @@
+{
+	"name": "keyboard_be",
+	"version": "1.0.0",
+	"description": "keyboard store (backend)",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prettier:check": "prettier --check .",
+		"prettier:write": "prettier --write .",
+		"format": "npm run prettier:write"
+	},
+	"author": "dangkhoa99",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.18.2",
+		"mongoose": "^7.1.1"
+	},
+	"devDependencies": {
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.22",
+		"prettier": "^2.8.8"
+	}
+}
