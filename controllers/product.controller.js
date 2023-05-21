@@ -1,3 +1,4 @@
+const { Statuses } = require('../common/constants')
 const Product = require('../models/product.model')
 
 // access: private
@@ -8,7 +9,9 @@ const ProductController = {
       const products = await Product.find()
       res.status(200).json(products)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -18,7 +21,9 @@ const ProductController = {
       const product = await Product.findById(req.params.id)
       res.status(200).json(product)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -28,7 +33,9 @@ const ProductController = {
       const product = await Product.create(req.body)
       res.status(201).json(product)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -43,7 +50,9 @@ const ProductController = {
 
       res.status(200).json(updateProduct)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -53,7 +62,9 @@ const ProductController = {
       const product = await Product.findByIdAndDelete(req.params.id)
       res.status(200).json(product)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 }

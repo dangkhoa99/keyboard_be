@@ -1,24 +1,30 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
+const { Statuses } = require('../common/constants')
 
 const authController = {
-  // desc: sign up
-  // route: POST /api/auth/signUp
+  // POST /api/auth/signUp
   // access: public
   signUp: async (req, res) => {
     const { username, password, name } = req.body
 
     if (!username || !password || !name) {
-      return res
-        .status(400)
-        .json({ message: 'Username, password and name is required.' })
+      return res.status(400).json({
+        message: 'Username, password and name is required.',
+        status: Statuses.ERROR,
+        code: 400,
+      })
     }
 
     const userExists = await User.findOne({ username })
 
     if (userExists) {
-      return res.status(400).json({ message: 'Username already exists.' })
+      return res.status(400).json({
+        message: 'Username already exists.',
+        status: Statuses.ERROR,
+        code: 400,
+      })
     }
 
     // Hash password
@@ -37,18 +43,27 @@ const authController = {
         name: newUser.name,
       })
     } else {
-      return res.status(400).json({ message: 'User data is not valid' })
+      return res
+        .status(400)
+        .json({
+          message: 'User data is not valid',
+          status: Statuses.ERROR,
+          code: 400,
+        })
     }
   },
 
-  // desc: sign in
-  // route: POST /api/auth/signIn
+  // POST /api/auth/signIn
   // access: public
   signIn: async (req, res) => {
     const { username, password } = req.body
 
     if (!username || !password) {
-      res.status(400).json({ message: 'Username and password is required.' })
+      res.status(400).json({
+        message: 'Username and password is required.',
+        status: Statuses.ERROR,
+        code: 400,
+      })
     }
 
     const user = await User.findOne({ username }).select('+password')
@@ -64,7 +79,7 @@ const authController = {
           },
         },
         process.env.ACCESS_TOKEN_SECERT,
-        { expiresIn: '1d' },
+        { expiresIn: '1d' }, // 1 day
       )
       return res.status(200).json({
         userId: user.id,
@@ -75,12 +90,15 @@ const authController = {
         },
       })
     } else {
-      return res.status(401).json({ message: 'Invalid username or password' })
+      return res.status(401).json({
+        message: 'Invalid username or password',
+        status: Statuses.ERROR,
+        code: 401,
+      })
     }
   },
 
-  // desc: Current user info
-  // route: POST /api/user/whoami
+  // POST /api/user/whoami
   // access: private
   whoAmI: async (req, res) => {
     return res.status(200).json(req.user)

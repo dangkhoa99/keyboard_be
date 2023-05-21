@@ -1,3 +1,4 @@
+const { Statuses } = require('../common/constants')
 const Category = require('../models/category.model')
 
 // access: private
@@ -8,7 +9,9 @@ const CategoryController = {
       const categories = await Category.find()
       res.status(200).json(categories)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -18,7 +21,9 @@ const CategoryController = {
       const category = await Category.findById(req.params.id)
       res.status(200).json(category)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -28,7 +33,9 @@ const CategoryController = {
       const category = await Category.create(req.body)
       res.status(201).json(category)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -43,7 +50,9 @@ const CategoryController = {
 
       res.status(200).json(updateCategory)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 
@@ -53,7 +62,9 @@ const CategoryController = {
       const category = await Category.findByIdAndDelete(req.params.id)
       res.status(200).json(category)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
 }
