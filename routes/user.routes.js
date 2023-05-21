@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../controllers/user.controller')
-const validateToken = require('../middleware/validateTokenHandler')
+const verifyToken = require('../middleware/verifyToken.middleware')
 
-router.use(validateToken)
+router.use(verifyToken)
 
 router.get('/', User.list)
 router.get('/:id', User.show)

@@ -1,61 +1,61 @@
-const Product = require('../models/product.model')
+const Category = require('../models/category.model')
 
 // access: private
-const ProductController = {
-  // GET /products
+const CategoryController = {
+  // GET /categories
   list: async (req, res) => {
     try {
-      const products = await Product.find()
-      res.status(200).json(products)
+      const categories = await Category.find()
+      res.status(200).json(categories)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
   },
 
-  // GET /products/:id
+  // GET /categories/:id
   show: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id)
-      res.status(200).json(product)
+      const category = await Category.findById(req.params.id)
+      res.status(200).json(category)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
   },
 
-  // POST /products
+  // POST /categories
   create: async (req, res) => {
     try {
-      const product = await Product.create(req.body)
-      res.status(201).json(product)
+      const category = await Category.create(req.body)
+      res.status(201).json(category)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
   },
 
-  // PATCH /products/:id
+  // PATCH /categories/:id
   edit: async (req, res) => {
     try {
-      const updateProduct = await Product.findByIdAndUpdate(
+      const updateCategory = await Category.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true },
       )
 
-      res.status(200).json(updateProduct)
+      res.status(200).json(updateCategory)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
   },
 
-  // DELETE /products/:id
+  // DELETE /categories/:id
   delete: async (req, res) => {
     try {
-      const product = await Product.findByIdAndDelete(req.params.id)
-      res.status(200).json(product)
+      const category = await Category.findByIdAndDelete(req.params.id)
+      res.status(200).json(category)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
   },
 }
 
-module.exports = ProductController
+module.exports = CategoryController

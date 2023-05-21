@@ -12,7 +12,9 @@ const productSchema = new Schema(
     },
     description: { type: String, maxlength: 1000 },
     price: { type: Number, default: 0 },
-    image: { type: String },
+    imageLinks: { type: [String] },
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+    quantity: { type: Number, default: 0 },
   },
   { timestamps: true },
 )

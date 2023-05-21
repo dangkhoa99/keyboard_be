@@ -1,11 +1,8 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 
+// access: private
 const UserController = {
-  // desc: get list user
-  // route: GET /users
-  // access: private
+  // GET /users
   list: async (req, res) => {
     try {
       const users = await User.find()
@@ -15,9 +12,7 @@ const UserController = {
     }
   },
 
-  // desc: get user by id
-  // route: GET /users/:id
-  // access: private
+  // GET /users/:id
   show: async (req, res) => {
     try {
       const user = await User.findById(req.params.id)
@@ -27,9 +22,7 @@ const UserController = {
     }
   },
 
-  // desc:  create user with info and account
-  // route: POST /users
-  // access: private
+  // POST /users
   create: async (req, res) => {
     try {
       const user = await User.create(req.body)
@@ -39,9 +32,7 @@ const UserController = {
     }
   },
 
-  // desc:  update user info
-  // route: PATCH /users/:id
-  // access: private
+  // PATCH /users/:id
   edit: async (req, res) => {
     try {
       const { username, password, role, ...other } = req.body
@@ -67,9 +58,7 @@ const UserController = {
     }
   },
 
-  // desc:  delete user by id
-  // route: DELETE /users/:id
-  // access: private
+  // DELETE /users/:id
   delete: async (req, res) => {
     try {
       const product = await Product.findByIdAndDelete(req.params.id)
