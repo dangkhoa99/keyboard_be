@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 async function connect() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/keyboard_db', {
+    await mongoose.connect(process.env.CONNECTION_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
