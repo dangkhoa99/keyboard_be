@@ -1,8 +1,12 @@
 const Statuses = {
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
-  ERROR: 'error',
-  SUCCESS: 'success',
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS',
+  PENDING: 'PENDING',
+  CANCELLED: 'CANCELLED',
+  APPROVED: 'APPROVED',
+  COMPLETED: 'COMPLETED',
 }
 
 const Roles = {
@@ -11,4 +15,14 @@ const Roles = {
   USER: '01-user',
 }
 
-module.exports = { Statuses, Roles }
+const StatusCode = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  SERVER_ERROR: 500,
+}
+
+module.exports = { Statuses, Roles, StatusCode }
