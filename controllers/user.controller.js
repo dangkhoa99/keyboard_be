@@ -61,6 +61,16 @@ const UserController = {
         })
       }
 
+      const emailExists = await User.findOne({ email: other.email })
+
+      if (emailExists) {
+        return res.status(400).json({
+          message: 'Email already exists.',
+          status: Statuses.ERROR,
+          code: 400,
+        })
+      }
+
       const updateUser = await User.findByIdAndUpdate(req.params.id, other, {
         new: true,
       })

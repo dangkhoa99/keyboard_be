@@ -7,11 +7,19 @@ const authController = {
   // POST /api/auth/signUp
   // access: public
   signUp: async (req, res) => {
-    const { username, password, name } = req.body
+    const { username, password } = req.body
 
-    if (!username || !password || !name) {
+    if (!username) {
       return res.status(400).json({
-        message: 'Username, password and name is required.',
+        message: 'Username is required.',
+        status: Statuses.ERROR,
+        code: 400,
+      })
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        message: 'Password is required.',
         status: Statuses.ERROR,
         code: 400,
       })
@@ -31,7 +39,6 @@ const authController = {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const newUser = await User.create({
-      name,
       username,
       password: hashedPassword,
     })
@@ -43,13 +50,11 @@ const authController = {
         name: newUser.name,
       })
     } else {
-      return res
-        .status(400)
-        .json({
-          message: 'User data is not valid',
-          status: Statuses.ERROR,
-          code: 400,
-        })
+      return res.status(400).json({
+        message: 'User data is not valid',
+        status: Statuses.ERROR,
+        code: 400,
+      })
     }
   },
 

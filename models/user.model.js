@@ -1,16 +1,23 @@
 const mongoose = require('mongoose')
+const { Roles } = require('../common/constants')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema(
   {
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true, select: false },
-    name: { type: String, required: true },
+    name: {
+      type: String,
+      required: true,
+      default: function () {
+        return this.username
+      },
+    },
     phone: { type: String },
-    email: { type: String },
+    email: { type: String, index: true, unique: true, sparse: true },
     address: { type: String },
     gender: { type: String },
-    role: { type: String, required: true, default: '98-admin' },
+    role: { type: String, required: true, default: Roles.ADMIN },
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true, select: false },
   },
   { timestamps: true },
 )
