@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000
 // Connect to DB
 db.connect()
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 

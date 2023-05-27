@@ -64,7 +64,7 @@ const authController = {
     const { username, password } = req.body
 
     if (!username || !password) {
-      res.status(400).json({
+      return res.status(400).json({
         message: 'Username and password is required.',
         status: Statuses.ERROR,
         code: 400,
@@ -83,7 +83,7 @@ const authController = {
             role: user.role,
           },
         },
-        process.env.ACCESS_TOKEN_SECERT,
+        process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1d' }, // 1 day
       )
       return res.status(200).json({
