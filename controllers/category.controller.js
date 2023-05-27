@@ -6,7 +6,7 @@ const CategoryController = {
   // GET /categories
   list: async (req, res) => {
     try {
-      const categories = await Category.find()
+      const categories = await Category.find().sort({ createdAt: 'desc' })
       res.status(200).json(categories)
     } catch (error) {
       res
