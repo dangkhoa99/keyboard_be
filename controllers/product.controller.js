@@ -6,7 +6,10 @@ const ProductController = {
   // GET /products
   list: async (req, res) => {
     try {
-      const products = await Product.find()
+      const products = await Product.find().populate({
+        path: 'category',
+        select: ['_id', 'name'],
+      })
       res.status(200).json(products)
     } catch (error) {
       res
