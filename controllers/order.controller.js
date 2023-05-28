@@ -22,6 +22,30 @@ const OrderController = {
     }
   },
 
+  // POST /orders/count
+  listCount: async (req, res) => {
+    const { status } = req.body
+
+    if (!status) {
+      return res.status(400).json({
+        message: 'Status is required',
+        status: Statuses.ERROR,
+        code: 400,
+      })
+    }
+
+    try {
+      const orders = await Order.find({ status: status })
+      const count = orders.length
+
+      res.status(200).json({ count })
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
+    }
+  },
+
   // GET /orders/:id
   show: async (req, res) => {
     try {
