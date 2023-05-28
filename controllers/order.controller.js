@@ -13,10 +13,7 @@ const OrderController = {
           path: 'user',
           select: ['_id', 'name', 'address', 'phone', 'email'],
         })
-        .populate({
-          path: 'products.product',
-          // select: ['_id', 'name', 'price'],
-        })
+
       res.status(200).json(orders)
     } catch (error) {
       res
@@ -29,6 +26,14 @@ const OrderController = {
   show: async (req, res) => {
     try {
       const order = await Order.findById(req.params.id)
+        .populate({
+          path: 'user',
+          select: ['_id', 'name', 'address', 'phone', 'email'],
+        })
+        .populate({
+          path: 'products.product',
+          select: ['name'],
+        })
       res.status(200).json(order)
     } catch (error) {
       res
@@ -59,7 +64,7 @@ const OrderController = {
       // Create a new order and subtract quantity in Product
       if (isContinue) {
         Order.create({ user: id, ...req.body })
-          .then((_res) => {
+          .then((newOrder) => {
             products.forEach(({ product: productId, quantity }) => {
               return Product.findById(productId)
                 .then((p) => {
@@ -67,7 +72,7 @@ const OrderController = {
                   p.save()
                 })
                 .catch((err) => {
-                  _res.status(400).json({
+                  res.status(400).json({
                     message: err.message,
                     status: Statuses.ERROR,
                     code: 400,
@@ -75,7 +80,7 @@ const OrderController = {
                 })
             })
 
-            res.status(201).json(_res)
+            res.status(201).json(newOrder)
           })
           .catch((error) => {
             res.status(500).json({
@@ -107,10 +112,30 @@ const OrderController = {
 
   // PATCH /orders/:id/change-status
   editStatus: async (req, res) => {
-    // Statues = CANCELED => return quantity in Product
     Order.findById(req.params.id)
       .then((o) => {
         o.status = req.body.status
+
+        // Statues = CANCELED => return quantity in Product
+        if (req.body.status === Statuses.CANCELLED) {
+          const products = o.products
+
+          products.forEach(({ product: productId, quantity }) => {
+            return Product.findById(productId)
+              .then((p) => {
+                p.quantity = p.quantity + quantity
+                p.save()
+              })
+              .catch((err) => {
+                res.status(400).json({
+                  message: err.message,
+                  status: Statuses.ERROR,
+                  code: 400,
+                })
+              })
+          })
+        }
+
         o.save()
       })
       .catch((err) => {
