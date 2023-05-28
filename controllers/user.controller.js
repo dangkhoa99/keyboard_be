@@ -184,6 +184,41 @@ const UserController = {
         .json({ message: error.message, status: Statuses.ERROR, code: 500 })
     }
   },
+
+  // POST /api/users/change-password
+  // User only can change password yourself
+  changePassword: async (req, res) => {
+    const { currentPassword, newPassword } = req.body
+    const { id } = req.user
+
+    try {
+      const user = await User.findById(id).select('+password')
+
+      // compare password with hashedPassword
+      if (user && (await bcrypt.compare(currentPassword, user.password))) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
+
+        user.password = hashedPassword
+        user.save()
+
+        res.status(200).json({
+          message: 'Change password success',
+          status: Statuses.SUCCESS,
+          code: 200,
+        })
+      } else {
+        res.status(401).json({
+          message: 'Current password is incorrect',
+          status: Statuses.ERROR,
+          code: 401,
+        })
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: error.message, status: Statuses.ERROR, code: 500 })
+    }
+  },
 }
 
 module.exports = UserController

@@ -8,6 +8,7 @@ router.use(verifyToken)
 router.get('/', User.list)
 router.get('/:id', User.show)
 router.post('/', User.create)
+router.post('/change-password', User.changePassword)
 router.patch('/:id', User.edit)
 router.delete('/:id', User.delete)
 

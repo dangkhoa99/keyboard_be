@@ -104,7 +104,7 @@ const authController = {
     }
   },
 
-  // POST /api/user/whoami
+  // POST /api/auth/whoami
   // access: private
   whoAmI: async (req, res) => {
     return res.status(200).json(req.user)
