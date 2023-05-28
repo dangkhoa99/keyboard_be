@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Statuses } = require('../common/constants')
+const { Statuses } = require('../common/constants/constants')
 const Schema = mongoose.Schema
 
 const orderSchema = new Schema(

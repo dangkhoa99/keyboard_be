@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { Statuses } = require('../common/constants')
+const { Statuses } = require('../common/constants/constants')
 
 const verifyToken = async (req, res, next) => {
   const authorization = req.headers.Authorization || req.headers.authorization

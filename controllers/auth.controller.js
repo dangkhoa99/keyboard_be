@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
-const { Statuses } = require('../common/constants')
+const { Statuses } = require('../common/constants/constants')
 
 const authController = {
   // POST /api/auth/signUp

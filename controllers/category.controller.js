@@ -1,4 +1,4 @@
-const { Statuses } = require('../common/constants')
+const { Statuses } = require('../common/constants/constants')
 const Category = require('../models/category.model')
 
 // access: private

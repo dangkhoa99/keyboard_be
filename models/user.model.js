@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Roles, Genders } = require('../common/constants')
+const { Roles, Genders } = require('../common/constants/constants')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema(

@@ -1,4 +1,5 @@
-const { Statuses, Roles } = require('../common/constants')
+const { Statuses, Roles } = require('../common/constants/constants')
+const { validateEmail } = require('../common/utils/validateEmail')
 const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
 
@@ -123,7 +124,15 @@ const UserController = {
         }
       }
 
-      if (other.email) {
+      if (other.email || other.email === '') {
+        if (!validateEmail(other.email)) {
+          return res.status(400).json({
+            message: 'Invalid email',
+            status: Statuses.ERROR,
+            code: '400',
+          })
+        }
+
         const emailExists = await User.findOne({ email: other.email })
 
         if (emailExists) {
@@ -163,7 +172,7 @@ const UserController = {
       }
     }
     try {
-      await Product.findByIdAndDelete(req.params.id)
+      await User.findByIdAndDelete(req.params.id)
       res.status(200).json({
         message: 'Delete Success',
         status: Statuses.SUCCESS,
