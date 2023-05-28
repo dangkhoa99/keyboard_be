@@ -7,8 +7,8 @@ router.use(verifyToken)
 
 router.get('/', User.list)
 router.get('/:id', User.show)
-// router.post('/:id', User.create)
+router.post('/', User.create)
 router.patch('/:id', User.edit)
-// router.delete('/:id', User.delete)
+router.delete('/:id', User.delete)
 
 module.exports = router

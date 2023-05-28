@@ -15,6 +15,12 @@ const Roles = {
   USER: '01-user',
 }
 
+const Genders = {
+  MALE: '01-male',
+  FEMALE: '02-female',
+  OTHER: '03-other',
+}
+
 const StatusCode = {
   OK: 200,
   CREATED: 201,
@@ -25,4 +31,4 @@ const StatusCode = {
   SERVER_ERROR: 500,
 }
 
-module.exports = { Statuses, Roles, StatusCode }
+module.exports = { Statuses, Roles, Genders, StatusCode }
