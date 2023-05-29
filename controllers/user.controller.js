@@ -185,7 +185,7 @@ const UserController = {
     }
   },
 
-  // POST /api/users/change-password
+  // POST /api/users/changePassword
   // User only can change password yourself
   changePassword: async (req, res) => {
     const { currentPassword, newPassword } = req.body
