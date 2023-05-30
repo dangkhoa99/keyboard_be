@@ -6,6 +6,7 @@ const upload = require('../common/utils/multer')
 
 router.use(verifyToken)
 
-router.post('/', upload.single('image'), Image.create)
+router.post('/uploadImage', upload.single('image'), Image.create)
+router.post('/uploadImages', upload.array('images'), Image.createImages)
 
 module.exports = router
