@@ -4,4 +4,4 @@ const validateEmail = (email) => {
   return String(email).toLowerCase().match(regexEmail)
 }
 
-module.exports = { validateEmail }
+module.exports = validateEmail
