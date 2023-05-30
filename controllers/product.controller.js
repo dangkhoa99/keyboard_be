@@ -23,7 +23,10 @@ const ProductController = {
   // GET /products/:id
   show: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id)
+      const product = await Product.findById(req.params.id).populate({
+        path: 'images',
+        select: ['link'],
+      })
       res.status(200).json(product)
     } catch (error) {
       res
