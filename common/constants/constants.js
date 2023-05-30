@@ -1,3 +1,5 @@
+const MAX_FILE_SIZE = 512 // 500 KB
+
 const Statuses = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -34,4 +36,11 @@ const StatusCode = {
 const regexEmail =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-module.exports = { Statuses, Roles, Genders, StatusCode, regexEmail }
+module.exports = {
+  Statuses,
+  Roles,
+  Genders,
+  StatusCode,
+  regexEmail,
+  MAX_FILE_SIZE,
+}
