@@ -28,7 +28,7 @@ const ImageController = {
 
   // POST /images/uploadImages
   createImages: async (req, res) => {
-    console.log('[CREATE IMAGES]:', req.files)
+    // console.log('[CREATE IMAGES]:', req.files)
     try {
       const files = req.files
 
