@@ -49,7 +49,7 @@ const UserController = {
         .json({ message: 'Forbidden', status: Statuses.ERROR, code: '403' })
     }
 
-    const { username, password } = req.body
+    const { username, password, email } = req.body
 
     const userExists = await User.findOne({ username })
 
@@ -59,6 +59,26 @@ const UserController = {
         status: Statuses.ERROR,
         code: 400,
       })
+    }
+
+    if (email || email === '') {
+      if (!validateEmail(email)) {
+        return res.status(400).json({
+          message: 'Invalid email',
+          status: Statuses.ERROR,
+          code: '400',
+        })
+      }
+
+      const emailExists = await User.findOne({ email })
+
+      if (emailExists) {
+        return res.status(400).json({
+          message: 'Email already exists.',
+          status: Statuses.ERROR,
+          code: 400,
+        })
+      }
     }
 
     // Hash password
